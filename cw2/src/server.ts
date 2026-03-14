@@ -1,9 +1,7 @@
 import http from "http";
+import { handleRoute } from "./router.js";
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello World suko!");
-});
+const server = http.createServer(handleRoute);    
 const port = 3000;
 server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
