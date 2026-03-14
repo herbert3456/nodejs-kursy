@@ -1,7 +1,15 @@
 import http, { IncomingMessage, ServerResponse } from "http";
 
 export const handleRoute = (req:IncomingMessage, res:ServerResponse) => {
-res.writeHead(200, { "Content-Type": "text/plain" });
-res.end("Hello World suko!");
+    if(req.url === "/") {
+        res.writeHead(200, { "Content-Type": "text/plain" });
+        res.end("Hello World!");
+    }
+
+    else if(req.url === "/info" && req.method === "GET") {
+        res.writeHead(200, { "Content-Type": "text/plain" });
+        res.end("This is the info page.");
+    }
+
 
 }
