@@ -45,13 +45,15 @@ router.get('/api/students/:id', async (req: Request, res:Response) => {
 });
 router.post('/api/students', async (req: Request, res:Response) => {
     const { firstname, lastname } = req.body;
+    const fileRepo = new FileRepo('students.json');
+    const id = await fileRepo.getlastId() + 1;
     const newStudent: Student = {
         id: Date.now(),
         firstname,
         lastname,
         date: new Date()
     };
-    const fileRepo = new FileRepo('students.json');
+    
     await fileRepo.addStudent(newStudent);
     res.status(201).json(newStudent);
 });
