@@ -41,5 +41,10 @@ export class FileRepo {
     }
     return Math.max(...students.map(student => student.id));
   }
+  deleteStudentById = async (id: number): Promise<void> => {
+    const students = await this.getAllStudents();
+    const filteredStudents = students.filter(student => student.id !== id);
+    await this.saveStudents(filteredStudents);
+  }
   
 }

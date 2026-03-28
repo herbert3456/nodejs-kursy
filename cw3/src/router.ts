@@ -59,6 +59,21 @@ router.post('/api/students', async (req: Request, res:Response) => {
     await fileRepo.addStudent(newStudent);
     res.status(201).json(newStudent);
 });
+router.delete('/api/students/:id', async (req: Request, res:Response) => {
+    const id = parseInt(req.params.id as string);
+    if (isNaN(id)) {
+        res.status(404).json({ message: "Invalid student id" });
+        return;
+    }
+    const fileRepo = new FileRepo('students.json');
+    const student = await fileRepo.getStudentById(id);
+    if (student) {
+        await fileRepo.deleteStudentById(id);
+        res.status(200).json({ message: "Student deleted successfully" });
+    } else {
+        res.status(404).json({ message: "Student not found" });
+    }
+});
 
 
 export default router;
