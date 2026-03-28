@@ -21,7 +21,8 @@ router.get('/index', async (req: Request, res:Response) => {
 router.get('/api/students', async (req: Request, res:Response) => {
     const fileRepo = new FileRepo('students.json');
     console.log(fileRepo.getfile());
-    const students = await fs.readFile(path.join(pathToPublic, 'students.json'), "utf-8");
+
+    const students = await fs.readFile(fileRepo.getfile(), "utf-8");
     res.status(200).json(JSON.parse(students));
 });
 export default router;
