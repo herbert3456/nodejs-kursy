@@ -32,23 +32,25 @@ router.get('/api/students', async (req: Request, res:Response) => {
 router.get('/api/students/:id', async (req: Request, res:Response) => {
     const id = parseInt(req.params.id as string);
     if (isNaN(id)) {
-        res.status(400).json({ message: "Invalid student id" });
+        res.status(404).json({ message: "Invalid student id" });
         return;
     }
     const fileRepo = new FileRepo('students.json');
     const student = await fileRepo.getStudentById(id);
     if (student) {
+        res.status(200).json(student);
+        
+    }else{
         res.status(404).json({ message: "Student not found" });
-        return;
     }
-    res.status(200).json(student);
+    
 });
 router.post('/api/students', async (req: Request, res:Response) => {
     const { firstname, lastname } = req.body;
     const fileRepo = new FileRepo('students.json');
     const id = await fileRepo.getlastId() + 1;
     const newStudent: Student = {
-        id: Date.now(),
+        id,
         firstname,
         lastname,
         date: new Date()
