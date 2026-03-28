@@ -46,5 +46,12 @@ export class FileRepo {
     const filteredStudents = students.filter(student => student.id !== id);
     await this.saveStudents(filteredStudents);
   }
-  
+  updateStudent = async (updatedStudent: Student): Promise<void> => {
+    const students = await this.getAllStudents();
+    const index = students.findIndex(student => student.id === updatedStudent.id);
+    if (index !== -1) {
+      students[index] = updatedStudent;
+      await this.saveStudents(students);
+    }
+  }
 }
