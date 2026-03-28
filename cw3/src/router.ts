@@ -17,4 +17,8 @@ router.get('/index', async (req: Request, res:Response) => {
     const context = await fs.readFile(pathToPublic + '/index.html', "utf-8");
     res.status(200).send(context);
 });
+router.get('/api/students', async (req: Request, res:Response) => {
+    const students = await fs.readFile(path.join(pathToPublic, 'students.json'), "utf-8");
+    res.status(200).json(JSON.parse(students));
+});
 export default router;
