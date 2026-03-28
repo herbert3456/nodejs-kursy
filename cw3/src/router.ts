@@ -19,10 +19,12 @@ router.get('/index', async (req: Request, res:Response) => {
     res.status(200).send(context);
 });
 router.get('/api/students', async (req: Request, res:Response) => {
+    //wykorzystanie klasy FileRepo do odczytania danych z pliku JSON
     const fileRepo = new FileRepo('students.json');
-    console.log(fileRepo.getfile());
+    //console.log(fileRepo.getfile());
 
-    const students = await fs.readFile(fileRepo.getfile(), "utf-8");
-    res.status(200).json(JSON.parse(students));
+    const students = await fileRepo.getAllStudents();
+    console.log(students);
+    res.status(200).json(students);
 });
 export default router;

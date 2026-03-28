@@ -12,5 +12,9 @@ export class FileRepo {
 getfile(){
     return this.pathToFile;
 } 
+getAllStudents = async () => {
+    const data = await fs.readFile(this.pathToFile, "utf-8");
+    return JSON.parse(data);
+
 
 }
